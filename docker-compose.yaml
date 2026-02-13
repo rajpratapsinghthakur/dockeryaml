@@ -1,28 +1,28 @@
 version: '3.8'
 
-networks:
-  n1:
-    driver: bridge
-  n2:
-    driver: bridge
-
 services:
   s1-httpd:
     image: httpd:latest
     container_name: s1_httpd
     ports:
-      - "80:80"
-    volumes:
-      - ./index.html:/usr/local/apache2/htdocs/index.html
+      - "8082:80"  # पोर्ट 80 की जगह 8082 इस्तेमाल करें
     networks:
       - n1
+    volumes:
+      - ./index.html:/usr/local/apache2/htdocs/index.html
 
   s2-tomcat:
     image: tomcat:9.0
     container_name: s2_tomcat
     ports:
-      - "8081:8080"
-    volumes:
-      - ./Sample.war:/usr/local/tomcat/webapps/Sample.war
+      - "8085:8080" # पोर्ट 8081 की जगह 8085 इस्तेमाल करें
     networks:
       - n2
+    volumes:
+      - ./sample.war:/usr/local/tomcat/webapps/sample.war
+
+networks:
+  n1:
+    driver: bridge
+  n2:
+    driver: bridge
