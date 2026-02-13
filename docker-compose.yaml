@@ -1,0 +1,28 @@
+version: '3.8'
+
+networks:
+  n1:
+    driver: bridge
+  n2:
+    driver: bridge
+
+services:
+  s1-httpd:
+    image: httpd:latest
+    container_name: s1_httpd
+    ports:
+      - "80:80"
+    volumes:
+      - ./index.html:/usr/local/apache2/htdocs/index.html
+    networks:
+      - n1
+
+  s2-tomcat:
+    image: tomcat:9.0
+    container_name: s2_tomcat
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./Sample.war:/usr/local/tomcat/webapps/Sample.war
+    networks:
+      - n2
